@@ -1,0 +1,18 @@
+<ng-container >
+    <!-- toolbar -->
+    <mat-toolbar color="primary">
+        <span>Cafeteria</span>
+    </mat-toolbar>
+    <!-- sidenav -->
+    <mat-sidenav-container class="sidenav-container">
+        <!-- sidenav content -->
+        <mat-sidenav mode="side" opened="true" disableClose="true" fixedTopGap="64" class="sidenav">
+            <app-sidenav></app-sidenav>
+        </mat-sidenav>
+        <!-- main content -->
+        <mat-sidenav-content>
+            <!-- routed pages -->
+            <router-outlet></router-outlet>
+        </mat-sidenav-content>
+    </mat-sidenav-container>
+</ng-container>

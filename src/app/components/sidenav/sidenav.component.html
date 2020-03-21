@@ -1,0 +1,21 @@
+<mat-nav-list>
+    <!-- sidenav title -->
+    <p mat-line class="center">Válasszon a listából</p>
+
+    <!-- create purchase link -->
+    <a routerLink="/purchase" [routerLinkActive]="['is-active']" mat-list-item matRipple [matRippleColor]="color">
+        <mat-icon mat-list-icon>add_shopping_cart</mat-icon>
+        <p mat-line>Vásárlás Rögzítése</p>
+    </a>
+    <!-- product riport link -->
+    <a routerLink="/productriport" [routerLinkActive]="['is-active']" mat-list-item matRipple [matRippleColor]="color">
+        <mat-icon mat-list-icon>insert_chart_outlined</mat-icon>
+        <p mat-line>Termékriport</p>
+    </a>
+    <!-- employee riport link -->
+    <a routerLink="/employeeriport" [routerLinkActive]="['is-active']" mat-list-item matRipple [matRippleColor]="color">
+        <mat-icon mat-list-icon>recent_actors</mat-icon>
+        <p mat-line>Dolgozói riport</p>
+    </a>
+
+</mat-nav-list>

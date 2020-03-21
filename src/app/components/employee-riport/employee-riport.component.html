@@ -1,0 +1,61 @@
+<div class="wrapper">
+    
+  <!-- title -->
+  <h2 class="mat-display-1">Dolgozói vásárlások</h2>
+  <p mat-line>Válasszon hónapot</p>
+
+  <!-- selecting month -->
+  <mat-form-field hintLabel="Válassza ki a hónapot">
+    <mat-select placeholder="Hónap" [(ngModel)]="selectedMonth" (ngModelChange)="onMonthSelect()">
+      <mat-option *ngFor="let month of months"  value="{{month.value}}">{{month.name}}</mat-option>
+    </mat-select>
+  </mat-form-field>
+
+  <ng-container>
+
+    <!-- employee debt table -->
+    <mat-table [dataSource]="allEmployeeDebt" class="mat-elevation-z8" *ngIf="hasData && !error">
+    
+      <!-- employeeName column -->
+      <ng-container matColumnDef="employeeName">
+        <mat-header-cell *matHeaderCellDef> Dolgozó neve </mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{element.employeeName}} </mat-cell>
+      </ng-container>
+    
+      <!-- debt column -->
+      <ng-container matColumnDef="debt">
+        <mat-header-cell *matHeaderCellDef> Havi tartozás </mat-header-cell>
+        <mat-cell *matCellDef="let element"> {{element.debt}} Ft</mat-cell>
+      </ng-container>
+      
+      <!-- mat-rows -->
+      <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+      <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+    
+    </mat-table> 
+    
+    <!-- loading card -->
+    <mat-card *ngIf="loading">
+      <mat-card-header>
+        <mat-card-title>Adatok lekérése folyamatban</mat-card-title>
+      </mat-card-header>
+      <mat-spinner></mat-spinner>
+    </mat-card>
+    
+    <!-- error card -->
+    <mat-card *ngIf="error">
+      <mat-card-header>
+        <mat-card-title>Nem sikerült betölteni az adatokat</mat-card-title>
+      </mat-card-header>    
+    </mat-card>
+    
+    <!-- nodata card -->
+    <mat-card *ngIf="!hasData && !loading && initial">
+      <mat-card-header>
+        <mat-card-title>Nincsenek várárlások erre a hónapra</mat-card-title>      
+      </mat-card-header>          
+    </mat-card>
+
+  </ng-container>  
+  
+</div>

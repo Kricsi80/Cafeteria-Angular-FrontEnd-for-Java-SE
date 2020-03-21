@@ -1,0 +1,109 @@
+<div class="wrapper">
+
+    <!-- title -->
+    <h2 class="mat-display-1">Vásárlás rögzítése</h2>
+    <p mat-line>Töltse ki az összes mezőt</p>
+
+    <mat-card class = card *ngIf="!(loading || error)">
+        <mat-card-header>            
+            <mat-card-title>Vásárlás rögzítése</mat-card-title>            
+        </mat-card-header>
+        <mat-card-content>
+
+            <!-- purchase form -->
+            <form [formGroup]="purchaseForm" #formDirective="ngForm">                
+                
+                <!-- selecting employee -->
+                <mat-form-field hintLabel="Válasszon dolgozót" class="full">                    
+                    <mat-select placeholder="Dolgozó" formControlName="employeeId">
+                        <mat-option *ngFor="let employee of allEmployees" value="{{employee.id}}">{{employee.name}}</mat-option>
+                    </mat-select>
+                </mat-form-field>
+                
+                <!-- products formArray -->
+                <div formArrayName="product" class="full">                            
+                    <div *ngFor="let phone of purchaseFromRows.controls; let i=index" [formGroupName]="i" class="formRow">
+
+                        <!-- selectiong product -->
+                        <mat-form-field hintLabel="Válasszon terméket" class="flexItem">
+                            <mat-select placeholder="Termék" formControlName="productId">
+                                <mat-option *ngFor="let product of allProducts" value="{{product.id}}">{{product.name}}
+                                </mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                        
+                        <!-- selecting input -->
+                        <mat-form-field hintLabel="Adja meg a mennyiséget (max 10 db)" class="flexItem">
+                            <input matInput placeholder="Mennyiség" type="number" formControlName="amount">
+                            <span matSuffix>db</span>
+                        </mat-form-field>
+
+                        <!-- unit price -->
+                        <span mat-line class="flexItem"> {{getProductPrice(purchaseForm.value.product[i].productId)}}
+                            Ft/db</span>                           
+                        
+                        <!-- delete product button -->
+                        <button mat-stroked-button
+                        color="warn"
+                        matTooltip="Termék törlése"                
+                        (click)="deletePurchaseFormRow(i)">
+                            <mat-icon>close</mat-icon>
+                        </button>  
+                    </div>                    
+                </div>
+                
+                <!-- purchase sum price -->
+                <mat-toolbar>
+                    <span>Teljes összeg:</span>
+                    <span class="flexItem"></span>
+                    <span>{{summed}} Ft</span>
+                </mat-toolbar>
+        
+                <!-- action buttons -->
+                <div class="formRow">
+                    <button mat-stroked-button
+                        color="primary"
+                        matTooltip="Új termék hozzáadása"
+                        (click)="addPurchaseFormRow()"
+                        class="flexButton">
+                        Új termék
+                        <mat-icon>add</mat-icon>
+                    </button>
+                    <button mat-stroked-button
+                        color="primary"
+                        matTooltip="Véglegesíti a vásárlást"
+                        type="submit"
+                        (click)="onSubmit(purchaseForm.value, formDirective)"
+                        class="flexButton">
+                        Véglegesítés
+                        <mat-icon>save_alt</mat-icon>
+                    </button>
+                    <button mat-stroked-button
+                        color="primary"
+                        matTooltip="Vásárlás törlése"
+                        (click)="clearPurchase(formDirective)"
+                        class="flexButton">
+                        Vásárlás törlése
+                        <mat-icon>delete_outline</mat-icon>
+                    </button>
+                </div>
+            </form>
+        </mat-card-content>
+    </mat-card>
+    
+    <!-- loading card -->
+    <mat-card *ngIf="loading">
+        <mat-card-header>
+        <mat-card-title>Adatok lekérése folyamatban</mat-card-title>
+        </mat-card-header>
+        <mat-spinner></mat-spinner>
+    </mat-card>
+    
+    <!-- error card -->
+    <mat-card *ngIf="error">
+        <mat-card-header>
+        <mat-card-title>Nem sikerült betölteni az adatokat</mat-card-title>
+        </mat-card-header>    
+    </mat-card>
+
+</div>

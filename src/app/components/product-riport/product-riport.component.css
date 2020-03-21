@@ -1,0 +1,38 @@
+.wrapper {
+    width: 100%;
+    height: 100%;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+        -ms-flex-direction: column;
+            flex-direction: column;
+    -webkit-box-pack: start;
+        -ms-flex-pack: start;
+            justify-content: flex-start;
+    -webkit-box-align: center;
+        -ms-flex-align: center;
+            align-items: center;
+}
+
+.mat-display-1 {
+    margin: 2rem 0 0 1rem;
+}
+
+mat-form-field {
+    margin-bottom: 2rem;
+}
+
+mat-table, mat-form-field, mat-divider {
+    width: 80%;    
+}
+
+mat-header-row {
+    background-color: rgba(63, 81, 181, 0.75);
+    text-transform: uppercase;
+}
+
+mat-spinner {
+    margin: 0 auto;
+}

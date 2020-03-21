@@ -1,0 +1,4 @@
+.sidenav-container {
+    /* 64 px is the height of the toolbar */
+    height: calc(100vh - 64px);   
+}
